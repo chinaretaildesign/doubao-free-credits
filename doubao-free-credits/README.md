@@ -8,7 +8,7 @@
 
 1. **生成领取清单**：按身份画像（学生 / 开发者 / 视频创作者 / 全量）输出 6 个官方渠道的领取步骤，含入口、前置条件、有效期与踩坑提示。
 2. **查询方舟账户**：用火山方舟 API Key 调用官方只读接口 `GET /api/v3/users/me` 校验 Key 与账户信息，不消耗任何额度。
-3. **每日提醒（可选）**：配合 WorkBuddy 定时任务，每天播报当日仍可领取的免费次数。
+3. **每日播报（可选）**：按过期时效分组播报当日仍可领取的免费次数，可配合 WorkBuddy 定时任务。
 
 ## 免费额度地图
 
@@ -45,6 +45,7 @@ Windows 用户目录为 `C:\Users\<用户名>\.workbuddy\skills\`。
 - 「豆包免费额度有哪些」
 - 「帮我领豆包积分」
 - 「我的方舟 token 还剩多少」
+- 「今天有什么免费额度」「免费额度提醒」
 
 也可在终端手动运行：
 
@@ -52,6 +53,10 @@ Windows 用户目录为 `C:\Users\<用户名>\.workbuddy\skills\`。
 # 生成领取清单
 python scripts/claim_guide.py --profile student      # student / developer / creator / all
 python scripts/claim_guide.py --profile developer --json
+
+# 每日播报（按过期时效分组）
+python scripts/daily_brief.py --profile creator
+python scripts/daily_brief.py --profile all --balance    # 附带查方舟余额
 
 # 查询方舟账户（只读）
 export ARK_API_KEY=你的Key          # PowerShell: $env:ARK_API_KEY="你的Key"
@@ -85,7 +90,11 @@ doubao-free-credits/
 │   └── api-spec.md                   # 方舟查询接口说明与错误码
 └── scripts/
     ├── claim_guide.py                # 生成领取清单
-    └── ark_balance.py                # 查询方舟账户（只读）
+    └── ark_balance.py                # 每日播报（按过期时效分组）
+python scripts/daily_brief.py --profile creator
+python scripts/daily_brief.py --profile all --balance    # 附带查方舟余额
+
+# 查询方舟账户（只读）
 ```
 
 ## 环境要求

@@ -5,7 +5,7 @@ description: "豆包免费额度/积分领取与查询助手。汇总豆包 App�
 description_zh: "豆包免费积分助手：把豆包 App、火山方舟 API、Seedance 视频生成、小云雀、即梦等字节系官方免费额度路径整理成一份可执行的领取清单，按用户身份（学生 / 开发者 / 视频创作者）给出优先级和操作步骤；支持用火山方舟 API Key 实际查询账户 token 余额与免费额度状态；可配置每日提醒播报当日免费次数领取情况。所有信息来自字节官方公开活动与文档，不做任何破解、绕过验证或多账号刷取。"
 description_en: "Doubao Free Credit Assistant: consolidates all official ByteDance free-credit paths (Doubao app, Volcano Ark API, Seedance video generation, Xiaoyunque, Dreamina) into an executable claim checklist, prioritized by user profile (student / developer / video creator). Supports querying real Ark token balance and free-quota status with an API key, and can be wired to a daily reminder that reports unclaimed free generations. All data comes from official ByteDance public campaigns and docs — no cracking, no verification bypass, no multi-account abuse."
 category: automation
-version: 1.0.0
+version: 1.1.0
 author: workbuddy
 agent_created: true
 visibility: public
