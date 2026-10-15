@@ -8,9 +8,10 @@
 ## 一、当前状态
 
 - 版本：1.0.0
-- Git 提交：已初始化（`D:\WorkBuddy\tmp\doubao-skill-publish`）
-- 远端：**未配置**（需你自行创建仓库后推送）
-- 发布包：`D:\WorkBuddy\outputs\doubao-free-credits-1.0.0.zip`（13.3 KB，7 个文件）
+- Git 提交：2 次提交（6575f84初版、 66e73f4 图标与发布指南）
+- 远端：已配置 `origin` → `https://github.com/chinaretaildesign/doubao-free-credits.git`
+- **待完成：首次 push**（agent 沙箱代理对 github 返回 502，需在本地 Git Bash 执行）
+- 发布包：`D:\WorkBuddy\outputs\doubao-free-credits-1.0.0.zip`（206.6 KB，7 个文件）
 
 ---
 
@@ -23,25 +24,33 @@ cd /d/WorkBuddy/tmp/doubao-skill-publish
 git log --oneline        # 确认提交存在
 ```
 
-### 2. 创建远端仓库
+### 2. 创建远端仓库（已完成）
 
-在 https://github.com/new 建仓，建议：
-
-- 仓库名：`doubao-free-credits`
-- 仓库描述：豆包 / 火山方舟 / Seedance / 小云雀 / 即梦 官方免费额度领取清单助手（WorkBuddy Skill）
-- 可见性：Public
-- 不要勾选 "Add a README"（本地已有）
+仓库已创建：`https://github.com/chinaretaildesign/doubao-free-credits`
+（Public，无自动 README，本地 git remote 已指向该地址）
 
 ### 3. 推送
 
+远端地址已填好，直接执行：
+
 ```bash
 cd /d/WorkBuddy/tmp/doubao-skill-publish
-git remote add origin https://github.com/<你的用户名>/doubao-free-credits.git
 git push -u origin master
 ```
 
-未安装 `gh` CLI 时也可以用网页方式：打开仓库 → Add file → Upload files，把
-`doubao-free-credits/` 目录里的文件拖上去。
+或运行一键脚本（等价操作）：
+
+```bash
+bash /d/WorkBuddy/tmp/doubao-skill-publish/push_to_github.sh
+```
+
+首次推送会弹出浏览器要求登录 GitHub 并授权，正常登录即可。若报
+`CONNECT tunnel failed` 或 `schannel: server closed abruptly`，说明走了代理，
+检查 `HTTP_PROXY` / `HTTPS_PROXY` 环境变量，必要时清空后重试：
+
+```bash
+HTTPS_PROXY= HTTP_PROXY= git push -u origin master
+```
 
 ### 4. 打 Release
 
