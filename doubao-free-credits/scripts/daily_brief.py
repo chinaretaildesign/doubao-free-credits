@@ -15,6 +15,14 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from claim_guide import CHANNELS, PROFILE_LABEL, pick  # noqa: E402
 
 
+def short_name(c):
+    """取渠道短名：去掉「·」之前的修饰，保留可区分的核心词。"""
+    parts = [p.strip() for p in c["name"].split("·")]
+    if len(parts) >= 2:
+        return f"{parts[0].strip()} {parts[-1].strip()}"
+    return parts[0].strip()
+
+
 def daily_items():
     """当日有效的免费额度项（这些最需要当天用掉）。"""
     return [c for c in CHANNELS if c.get("expires") == "daily"]
@@ -41,13 +49,13 @@ def render_text(profile):
     if today:
         L.append(f"⏰ 今日有效（过期清零，今天不用就浪费）")
         for c in today:
-            L.append(f"  · {c['name'].split('·')[0].strip()}：{c['value']}")
+            L.append(f"  · {short_name(c)}：{c['value']}")
             L.append(f"    入口：{c['entry']}")
         L.append("")
     if ever:
         L.append("📌 长期有效（不急，但别忘了额度限制）")
         for c in ever:
-            L.append(f"  · {c['name'].split('·')[0].strip()}：{c['value']}")
+            L.append(f"  · {short_name(c)}：{c['value']}")
         L.append("")
     L.append("三个提醒：")
     L.append("  1. 免费额度通常要手动领，豆包在「我的 → 我的权益 → 领取今日免费额度」")
@@ -76,7 +84,7 @@ def render_md(profile, balance):
     L.append("")
     if today:
         for c in today:
-            L.append(f"- **{c['name'].split('·')[0].strip()}** — {c['value']}")
+            L.append(f"- **{short_name(c)}** — {c['value']}")
             L.append(f"  - 入口：{c['entry']}")
             L.append(f"  - 注意：{c['pitfall']}")
     else:
@@ -87,7 +95,7 @@ def render_md(profile, balance):
     L.append("")
     if ever:
         for c in ever:
-            L.append(f"- **{c['name'].split('·')[0].strip()}** — {c['value']}")
+            L.append(f"- **{short_name(c)}** — {c['value']}")
             L.append(f"  - 入口：{c['entry']}")
     else:
         L.append("- 无")
