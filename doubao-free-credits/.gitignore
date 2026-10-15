@@ -1,0 +1,9 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+Thumbs.db
+
+# 本地凭据，绝不能提交
+doubao-ark-key.json
+*.key
+.env
