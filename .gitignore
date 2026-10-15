@@ -11,3 +11,5 @@ doubao-ark-key.json
 # 临时诊断脚本
 diag_net.ps1
 fix_proxy.ps1
+git-cheatsheet.sh
+refresh_path.ps1
