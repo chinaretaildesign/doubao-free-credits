@@ -1,14 +1,24 @@
 ---
 name: doubao-free-credits
 display_name: 豆包免费积分助手
-description: "豆包免费额度/积分领取与查询助手。汇总豆包 App、火山方舟、Seedance 视频、小云雀、即梦等字节系全部官方免费额度领取路径（每日免费次数、新用户 tokens、学生认证权益），一键生成个性化领取清单与操作指引；支持用火山方舟 API Key 查询账户剩余 token 余额与免费额度状态。支持配置每日提醒自动播报「今天还有多少免费次数没领」。触发词：豆包积分、豆包免费额度、豆包额度、免费token、豆包会员、豆包学生认证、免费领豆包会员、Seedance 免费额度、视频生成免费次数、小云雀积分、即梦免费额度、火山方舟余额、方舟 token 余额、我的 token 够用吗、免费额度还有吗、领取豆包福利、字节系免费福利、帮我领豆包积分、豆包怎么免费用。"
+description: "豆包免费额度/积分领取与查询助手。汇总豆包 App、火山方舟、Seedance 视频、小云雀、即梦等字节系全部官方免费额度领取路径（每日免费次数、新用户 tokens、学生认证权益），一键生成个性化领取清单与每日播报；支持用火山方舟 API Key 查询账户 token 余额与免费额度状态。触发词：豆包积分、豆包免费额度、豆包额度、免费token、豆包会员、豆包学生认证、免费领豆包会员、Seedance 免费额度、视频生成免费次数、小云雀积分、即梦免费额度、火山方舟余额、方舟 token 余额、我的 token 够用吗、免费额度还有吗、领取豆包福利、字节系免费福利、帮我领豆包积分、豆包怎么免费用、AI 免费额度、AI 白嫖、字节系福利、今天有什么免费额度、免费额度提醒、每日额度播报。"
 description_zh: "豆包免费积分助手：把豆包 App、火山方舟 API、Seedance 视频生成、小云雀、即梦等字节系官方免费额度路径整理成一份可执行的领取清单，按用户身份（学生 / 开发者 / 视频创作者）给出优先级和操作步骤；支持用火山方舟 API Key 实际查询账户 token 余额与免费额度状态；可配置每日提醒播报当日免费次数领取情况。所有信息来自字节官方公开活动与文档，不做任何破解、绕过验证或多账号刷取。"
 description_en: "Doubao Free Credit Assistant: consolidates all official ByteDance free-credit paths (Doubao app, Volcano Ark API, Seedance video generation, Xiaoyunque, Dreamina) into an executable claim checklist, prioritized by user profile (student / developer / video creator). Supports querying real Ark token balance and free-quota status with an API key, and can be wired to a daily reminder that reports unclaimed free generations. All data comes from official ByteDance public campaigns and docs — no cracking, no verification bypass, no multi-account abuse."
+category: automation
 version: 1.0.0
 author: workbuddy
-display_name_en: Doubao Free Credit Assistant
-allowed-tools: Bash
+agent_created: true
+visibility: public
 license: MIT-0
+metadata:
+  openclaw:
+    emoji: "🫘"
+    requires:
+      bins:
+        - python3
+      env:
+        - ARK_API_KEY
+allowed-tools: Bash
 ---
 
 # 豆包免费积分助手（免费额度领取 + 余额查询）
@@ -53,11 +63,26 @@ python scripts/ark_balance.py --json
 
 若未配置 Key，脚本会输出明确的配置指引并以退出码 2 结束，**不伪造任何数字**。
 
-### 步骤 3 · 每日提醒（可选，需用户明确同意）
+### 步骤 3 · 每日播报（可选，需用户明确同意）
 
-不要默认开启。当用户说「每天提醒我领豆包免费次数」时，用 `automation_update` 建一个每日任务，prompt 写：
+生成当日播报内容：
 
-> 读取 doubao-free-credits 技能的 references/claim-channels.md，播报今天仍可领取的官方免费额度项（豆包 Seedance 每日次数、即梦每日次数、小云雀当日积分），并提示这些额度当日有效、过期清零。若已配置 ARK_API_KEY，附带查询到的 token 余额。
+```bash
+python scripts/daily_brief.py --profile creator      # 学生 / 开发者 / 创作者 / 全量
+python scripts/daily_brief.py --profile all --balance # 附带查方舟余额（只读）
+python scripts/daily_brief.py --json                 # 结构化输出
+```
+
+播报按**过期时效**分两组：
+
+- **⏰ 今日有效** —— 当日清零、不累计。豆包 Seedance、即梦、小云雀都属这类，提醒的核心价值是「今天不用就浪费」
+- **📌 长期有效** —— 按活动周期或当月清零的额度。方舟 tokens、学生会员属这类
+
+**不要默认开启定时任务。** 仅当用户明确说「每天提醒我领豆包免费次数」时，用 `automation_update` 创建每日任务，prompt 写：
+
+> 运行 doubao-free-credits 技能，执行 `python scripts/daily_brief.py --profile <用户画像>`，把「⏰ 今日有效」分组的内容播报给我，并强调这些额度当日清零。同时提示三个通用规则：免费额度通常需手动领取、只对指定模型生效、同手机号跨平台额度不叠加。
+
+推荐时间：**上午 9 点**。Seedance 和即梦的额度都是 0 点刷新、深夜领了大概率用不上，所以早上提醒最有效。
 
 ---
 
@@ -86,13 +111,29 @@ python scripts/ark_balance.py --json
 
 ## 五、文件说明
 
-- `@references/claim-channels.md` — 各渠道完整领取步骤与官方链接（脚本与每日提醒都会读它）
+- `@references/claim-channels.md` — 各渠道完整领取步骤与官方链接（维护数据只改这个文件）
 - `@references/api-spec.md` — 方舟余额查询接口说明与错误码
-- `@scripts/claim_guide.py` — 生成领取清单
+- `@scripts/claim_guide.py` — 生成领取清单（渠道数据的唯一来源，其他脚本从此导入）
 - `@scripts/ark_balance.py` — 查询方舟 token 余额（只读）
+- `@scripts/daily_brief.py` — 每日播报，按 `expires` 字段区分当日清零与长期有效
 
 ---
 
-## 六、维护约定
+## 六、渠道数据结构
 
-官方活动规则变动频繁。更新数据时**只改** `references/claim-channels.md` 中的条目，并在该文件顶部记录 `最后核验日期`，让用户一眼看出信息新鲜度。
+`claim_guide.py` 的 `CHANNELS` 里每个渠道含一个 `expires` 字段，播报逻辑依赖它：
+
+| 值 | 含义 | 归属分组 |
+|---|---|---|
+| `daily` | 当日清零，不累计 | ⏰ 今日有效 |
+| `cycle` | 按活动周期清零 | 📌 长期有效 |
+| `month` | 当月清零 | 📌 长期有效 |
+| `long` | 按活动期（通常覆盖学期） | 📌 长期有效 |
+
+新增渠道时**必须填 `expires`**，否则播报会漏掉它。
+
+---
+
+## 七、维护约定
+
+官方活动规则变动频繁。更新数据时**只改** `references/claim-channels.md` 与 `claim_guide.py` 的 `CHANNELS` 列表，并在 `claim-channels.md` 顶部记录 `最后核验日期`，让用户一眼看出信息新鲜度。
