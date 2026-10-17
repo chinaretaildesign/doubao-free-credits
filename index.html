@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>China Travel Assistant | ChinaRetailDesign</title>
+  <meta name="description" content="A fully offline preparation guide for foreign visitors to mainland China: visas, payments, apps, eSIMs, city essentials and a phrasebook. No account, no tracking.">
+  <link rel="canonical" href="https://www.chinaretaildesign.com/app/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="China Travel Assistant | ChinaRetailDesign">
+  <meta property="og:description" content="A fully offline preparation guide for foreign visitors to mainland China: visas, payments, apps, eSIMs, city essentials and a phrasebook. No account, no tracking.">
+  <meta property="og:url" content="https://www.chinaretaildesign.com/app/">
+  <meta property="og:image" content="https://www.chinaretaildesign.com/app/assets/og-1200x630.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.chinaretaildesign.com/app/assets/og-1200x630.png">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/png" sizes="32x32" href="/app/assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/app/assets/favicon-192.png">
+  <link rel="apple-touch-icon" href="/app/assets/apple-touch-icon.png">
+  <style>
+    /* The width/height attributes we put on <img> tags become presentational
+       height hints (e.g. height: 1440px), which beat aspect-ratio auto-sizing
+       and stretch images into distorted slabs once max-width shrinks the
+       width. Main-site CSS only sets max-width:100%, not height:auto. Force
+       proportional scaling for every image on these pages. */
+    img { display: block; max-width: 100%; height: auto; }
+
+    .app-page { padding: 0 0 5rem; }
+
+    /* Sky-photo hero: photo sits behind a white scrim that keeps the left
+       text column readable while the top/right sky stays visible. */
+    .app-hero {
+      position: relative;
+      background: #DCEBF5 url('assets/sky-hero.jpg') center / cover no-repeat;
+      color: #14293D; padding: 4.5rem 0 4rem; overflow: hidden;
+    }
+    .app-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(100deg, rgba(255,255,255,.92) 0%, rgba(255,255,255,.78) 42%, rgba(255,255,255,.25) 78%, rgba(255,255,255,.05) 100%);
+    }
+    .app-hero .wrap { position: relative; }
+    .app-hero .wrap > * { min-width: 0; }
+    .app-hero .wrap {
+      max-width: 1100px; display: grid; grid-template-columns: 1.1fr .9fr;
+      gap: 3rem; align-items: center;
+    }
+    .app-hero .eyebrow {
+      display: inline-block; font-size: .8125rem; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; color: #C24A18; margin-bottom: 1rem;
+    }
+    .app-hero h1 {
+      color: #0E1F30; font-size: clamp(2rem, 4.2vw, 2.875rem); line-height: 1.18;
+      letter-spacing: -.01em; margin-bottom: 1rem;
+    }
+    .app-hero p {
+      color: rgba(20,41,61,.78); font-size: 1.0625rem; line-height: 1.75;
+      max-width: 34rem; margin-bottom: 1.75rem;
+    }
+    .app-badges { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .app-badge {
+      border: 1px solid rgba(14,31,48,.3); border-radius: 999px;
+      padding: .35rem .85rem; font-size: .8125rem; font-weight: 600;
+      color: #14293D; background: rgba(255,255,255,.55);
+    }
+    .app-hero .shot {
+      width: 100%; max-width: 320px; height: auto; justify-self: center;
+      border-radius: 18px;
+      box-shadow: 0 24px 60px rgba(14,31,48,.35); display: block;
+    }
+
+    .app-section { padding: 4rem 0; }
+    .app-section.alt { background: var(--bg-soft); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .app-section .wrap { max-width: 1100px; }
+    .app-section h2 {
+      color: var(--navy); font-size: 1.625rem; line-height: 1.35; margin-bottom: .5rem;
+      letter-spacing: -.01em;
+    }
+    .app-section .sub { color: var(--text-2); font-size: .9375rem; margin-bottom: 2rem; max-width: 44rem; }
+
+    .app-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .app-card {
+      background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 1.25rem;
+    }
+    .app-card .num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--accent-warm);
+      color: #fff; font-size: .75rem; font-weight: 700; margin-bottom: .75rem;
+    }
+    .app-card h3 { color: var(--navy); font-size: 1rem; margin-bottom: .4rem; }
+    .app-card p { color: var(--text-2); font-size: .875rem; line-height: 1.7; }
+
+    .app-shots { display: grid; grid-template-columns: repeat(6, 1fr); gap: .75rem; }
+    .app-shots figure { margin: 0; }
+    .app-shots img {
+      width: 100%; height: auto; display: block; border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+    .app-shots figcaption {
+      margin-top: .45rem; color: var(--muted); font-size: .75rem; line-height: 1.4;
+    }
+
+    .app-cta {
+      background: var(--navy); color: #fff; border-radius: var(--radius);
+      padding: 2.25rem 1.75rem; text-align: center;
+    }
+    .app-cta h2 { color: #fff; margin-bottom: .5rem; }
+    .app-cta p { color: rgba(255,255,255,.7); font-size: .9375rem; max-width: 38rem; margin: 0 auto; }
+
+    .app-foot {
+      border-top: 1px solid var(--border); padding: 1.75rem 0; text-align: center;
+      color: var(--muted); font-size: .8125rem;
+    }
+    .app-foot a { color: var(--text-2); text-decoration: underline; }
+
+    @media (max-width: 900px) {
+      .app-hero .wrap { grid-template-columns: 1fr; gap: 2.25rem; }
+      .app-grid { grid-template-columns: 1fr; }
+      .app-shots { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .app-shots { grid-template-columns: repeat(2, 1fr); }
+      .app-hero { padding: 3rem 0; }
+      .app-section { padding: 3rem 0; }
+    }
+</style>
+</head>
+<body>
+
+<nav class="blog-nav">
+  <div class="inner">
+    <a class="logo" href="/"><svg class="mark-svg" viewBox="0 0 28 28" width="28" height="28" aria-hidden="true"><path d="M 21 7 A 10 10 0 1 0 21 21" fill="none" stroke="#F9622D" stroke-width="5" stroke-linecap="round"/></svg>ChinaRetailDesign</a>
+    <div class="links">
+      <a href="/">首页</a>
+      <a href="/blog/">博客</a>
+      <a href="/portfolio/">作品集</a>
+      <a href="/app/" style="color:var(--navy);font-weight:600">App</a>
+      <a href="/#contact">联系我们</a>
+      <a href="/en/" style="opacity:.7">EN</a>
+    </div>
+  </div>
+</nav>
+
+<main class="app-page">
+
+  <section class="app-hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">An app by ChinaRetailDesign</span>
+        <h1>China, made navigable before you fly</h1>
+        <p>A preparation guide for foreign visitors to mainland China: what to arrange,
+           which apps to install and how to set them up, how eSIMs really behave, and what
+           each city expects from you on arrival.</p>
+        <div class="app-badges">
+          <span class="app-badge">Works fully offline</span>
+          <span class="app-badge">No account</span>
+          <span class="app-badge">No tracking</span>
+          <span class="app-badge">Free</span>
+        </div>
+      </div>
+      <img class="shot" src="/app/assets/shots/01-prepare.webp"
+           srcset="/app/assets/shots/01-prepare.webp 1x, /app/assets/shots/01-prepare@2x.png 2x"
+           alt="Preparation checklist screen" width="720" height="1440">
+    </div>
+  </section>
+
+  <section class="app-section">
+    <div class="wrap">
+      <h2>Everything to sort out before the trip</h2>
+      <p class="sub">Not a guidebook — a pre-departure checklist with the reasoning attached.
+         Each step explains why it matters and what happens if you skip it.</p>
+      <div class="app-grid">
+        <div class="app-card"><span class="num">1</span><h3>Preparation checklist</h3><p>Visa-free entry windows, cash to carry, what must be installed before boarding, and what can only be done after landing.</p></div>
+        <div class="app-card"><span class="num">2</span><h3>Payments, step by step</h3><p>Alipay and WeChat Pay setup written for first-time users: card limits, ID checks, and the two settings that catch almost everyone.</p></div>
+        <div class="app-card"><span class="num">3</span><h3>The apps that matter</h3><p>Maps, metro, trains, translation and delivery — which ones work in English, which need a Chinese number, and where each is required.</p></div>
+        <div class="app-card"><span class="num">4</span><h3>City essentials</h3><p>Per-city notes on transport cards, airport transfers, neighbourhoods, and the payment quirks of each place.</p></div>
+        <div class="app-card"><span class="num">5</span><h3>eSIM, explained honestly</h3><p>Roaming vs China-market eSIMs, real coverage differences behind the firewall, and published tariff figures — with no carrier recommended.</p></div>
+        <div class="app-card"><span class="num">6</span><h3>Phrasebook and tools</h3><p>Essential phrases with pinyin, a currency converter, and a one-tap local data wipe. All stored and computed on your device only.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="app-section alt">
+    <div class="wrap">
+      <h2>Screenshots</h2>
+      <p class="sub">Captured from the app itself.</p>
+      <div class="app-shots">
+        <figure><img loading="lazy" src="/app/assets/shots/01-prepare.webp" srcset="/app/assets/shots/01-prepare.webp 1x, /app/assets/shots/01-prepare@2x.png 2x" alt="Preparation checklist screen" width="720" height="1440"><figcaption>Know what to prepare before you fly</figcaption></figure>
+        <figure><img loading="lazy" src="/app/assets/shots/02-prepare-payments.webp" srcset="/app/assets/shots/02-prepare-payments.webp 1x, /app/assets/shots/02-prepare-payments@2x.png 2x" alt="Payment setup guide screen" width="720" height="1440"><figcaption>Set up Alipay and WeChat Pay step by step</figcaption></figure>
+        <figure><img loading="lazy" src="/app/assets/shots/03-apps.webp" srcset="/app/assets/shots/03-apps.webp 1x, /app/assets/shots/03-apps@2x.png 2x" alt="App recommendation screen" width="720" height="1440"><figcaption>Download the apps you will actually need</figcaption></figure>
+        <figure><img loading="lazy" src="/app/assets/shots/04-city-detail.webp" srcset="/app/assets/shots/04-city-detail.webp 1x, /app/assets/shots/04-city-detail@2x.png 2x" alt="City detail screen" width="720" height="1440"><figcaption>Plan food, transport and payments per city</figcaption></figure>
+        <figure><img loading="lazy" src="/app/assets/shots/05-tools.webp" srcset="/app/assets/shots/05-tools.webp 1x, /app/assets/shots/05-tools@2x.png 2x" alt="Phrasebook and currency converter screen" width="720" height="1440"><figcaption>Save phrases and check the exchange rate</figcaption></figure>
+        <figure><img loading="lazy" src="/app/assets/shots/06-esim.webp" srcset="/app/assets/shots/06-esim.webp 1x, /app/assets/shots/06-esim@2x.png 2x" alt="eSIM overview screen" width="720" height="1440"><figcaption>Understand your eSIM options before you fly</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="app-section">
+    <div class="wrap">
+      <div class="app-cta">
+        <h2>Get the app</h2>
+        <p>China Travel Assistant is being prepared for release on Google Play and Samsung
+           Galaxy Store. Download links will be added here as soon as each listing goes live.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="app-foot">
+    <div class="wrap">
+      <p>© 2026 ChinaRetailDesign · <a href="/app/privacy/">Privacy policy</a> ·
+         <a href="mailto:sammyhuang@chinaretaildesign.com">sammyhuang@chinaretaildesign.com</a></p>
+      <p>The app works entirely offline and requests no internet permission.</p>
+    </div>
+  </div>
+
+</main>
+
+</body>
+</html>
